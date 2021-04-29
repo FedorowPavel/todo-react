@@ -1,9 +1,13 @@
-import { connect } from "react-redux";
-import React, { Component } from "react";
-import { addList, deleteList, getLists } from "../../store/lists/actions";
-import AddListForm from "./add-list-form";
-import ListOfLists from "./list-of-lists";
-import Loader from "../common/loader";
+/* eslint-disable */
+
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { addList, deleteList, getLists } from '../../store/lists/actions';
+import AddEntityForm from '../common/add-entity-form';
+import ListOfLists from './list-of-lists';
+import Loader from '../common/loader';
+import { ActionStatus } from '../../constants/action-status';
 
 class Lists extends Component {
   componentDidMount() {
@@ -18,16 +22,17 @@ class Lists extends Component {
 
   render() {
     const { lists, addList, deleteList, status } = this.props;
+
     return (
       <>
         <div className="add-form">
-          <AddListForm onSubmit={addList} />
+          <AddEntityForm onSubmit={addList} />
         </div>
 
         <div className="list-of-lists">
           <ListOfLists lists={lists} onDelete={deleteList} />
         </div>
-        {status === "loading" && <Loader />}
+        {status === 'loading' && <Loader />}
       </>
     );
   }
@@ -49,3 +54,21 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lists);
+
+Lists.propTypes = {
+  lists: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  addList: PropTypes.func.isRequired,
+  deleteList: PropTypes.func.isRequired,
+  getLists: PropTypes.func.isRequired,
+  status: PropTypes.oneOf([
+    ActionStatus.IDLE,
+    ActionStatus.LOADING,
+    ActionStatus.SUCCEEDED,
+    ActionStatus.FAILED,
+  ]).isRequired,
+};

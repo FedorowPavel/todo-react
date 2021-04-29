@@ -1,51 +1,49 @@
+import { ContentType } from '../constants/content-type';
+import { HttpMethod } from '../constants/http-method';
+
 class ApiService {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
 
   async get(url) {
-    console.log(url);
-    const response = await fetch(`${this.baseUrl}/${url}`, { method: "GET" });
+    const response = await fetch(`${this.baseUrl}/${url}`, {
+      method: HttpMethod.GET,
+    });
 
     if (!response.ok) {
       throw Error(response.status);
     }
-    const json = await response.json();
-
-    return json;
+    return response.json();
   }
 
   async post(url, body) {
     const response = await fetch(`${this.baseUrl}/${url}`, {
-      method: "POST",
+      method: HttpMethod.POST,
       body: JSON.stringify(body),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': ContentType.APLICATION_JSON,
       },
     });
 
     if (!response.ok) {
       throw Error(response.status);
     }
-    const json = await response.json();
-
-    return json;
+    return response.json();
   }
 
   async delete(url) {
     const response = await fetch(`${this.baseUrl}/${url}`, {
-      method: "DELETE",
+      method: HttpMethod.DELETE,
     });
 
     if (!response.ok) {
       throw Error(response.status);
     }
-    const json = await response.json();
-
-    return json;
+    return response.json();
   }
 }
 
-const apiService = new ApiService("http://localhost:3001");
+const apiService = new ApiService(process.env.REACT_APP_API_URL);
 
 export default apiService;

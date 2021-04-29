@@ -1,26 +1,26 @@
-import * as actionTypes from "./types";
+import { ActionStatus } from '../../constants/action-status';
+import * as actionTypes from './types';
 
 const initialState = {
   lists: [],
-  status: "idle",
+  status: ActionStatus.IDLE,
 };
 
-export function lists(state = initialState, action) {
+export default function lists(state = initialState, action) {
   switch (action.type) {
     case actionTypes.ADD_LIST_SUCCESS: {
-      console.log("[add_case]");
       return {
         ...state,
         lists: [...state.lists, action.payload],
-        status: "succeeded",
+        status: ActionStatus.SUCCEEDED,
       };
     }
 
     case actionTypes.DELETE_LIST_SUCCESS: {
-      console.log("[delete_case]");
       return {
         ...state,
         lists: [...state.lists.filter((list) => list.id !== action.payload)],
+        status: ActionStatus.SUCCEEDED,
       };
     }
 
@@ -28,14 +28,15 @@ export function lists(state = initialState, action) {
       return {
         ...state,
         lists: action.payload,
-        status: "succeeded",
+        status: ActionStatus.SUCCEEDED,
       };
     }
     case actionTypes.ADD_LIST_REQUEST:
+    case actionTypes.DELETE_LIST_REQUEST:
     case actionTypes.GET_LISTS_REQUEST: {
       return {
         ...state,
-        status: "loading",
+        status: ActionStatus.LOADING,
       };
     }
     default:
