@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
+import EntityType from '../../constants/entity-type';
+
+const placeholderByEntityType = {
+  [EntityType.LIST]: 'Enter list name...',
+  [EntityType.TASK]: 'Enter task...',
+};
 
 export default class AddEntityForm extends Component {
   constructor() {
@@ -19,6 +25,7 @@ export default class AddEntityForm extends Component {
   };
 
   render() {
+    const { type } = this.props;
     return (
       <Formik
         initialValues={{ name: '' }}
@@ -30,7 +37,7 @@ export default class AddEntityForm extends Component {
             <input
               type="text"
               name="name"
-              placeholder="Enter list name..."
+              placeholder={placeholderByEntityType[type]}
               onChange={handleChange}
               value={values.name}
             />

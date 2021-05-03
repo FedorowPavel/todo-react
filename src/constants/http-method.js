@@ -10,4 +10,8 @@ export class HttpMethod {
   static get DELETE() {
     return 'delete';
   }
+
+  static get PUT() {
+    return 'put';
+  }
 }
