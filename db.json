@@ -1,27 +1,27 @@
 {
   "lists": [
     {
-      "name": "sdf",
-      "id": 6
+      "name": "list 1",
+      "id": 1
     },
     {
-      "name": "sdf",
-      "id": 7
+      "name": "list 2",
+      "id": 2
     },
     {
-      "name": "werwqw",
-      "id": 8
+      "name": "list 3",
+      "id": 3
     }
   ],
   "tasks": [
     {
-      "name": "task",
-      "listId": "6",
+      "name": "task 1 ",
+      "listId": "1",
       "id": 1
     },
     {
-      "name": "aafd",
-      "listId": "6",
+      "name": "task 2",
+      "listId": "1",
       "id": 2
     }
   ]
