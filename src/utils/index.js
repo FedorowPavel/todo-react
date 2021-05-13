@@ -1,14 +1,14 @@
-export function generateId(array) {
+export function getLastOrder(array) {
   // console.log(array)
   // получаем массив значений свойства id всех объектов task
-  const ids = array.map((item) => item.id);
+  const orders = array.map((item) => item.order);
 
   // если у нас пустой массив, значит начианем нумерацию с единицы
-  if (!ids.length) {
+  if (!orders.length) {
     return 1;
   }
-  // нвходим макс айди
-  const maxId = Math.max(...ids);
+  // нвходим макс orders
+  const maxOrder = Math.max(...orders);
   // возращаем новый больше макс на 1
-  return maxId + 1;
+  return maxOrder + 1;
 }

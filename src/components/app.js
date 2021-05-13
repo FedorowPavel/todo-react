@@ -1,16 +1,20 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
 import React from 'react';
+import { BrowserRouter, Switch } from 'react-router-dom';
+
 import Lists from './lists';
 import List from './list';
+import PrivateRoute from './private-route';
+import Header from './header';
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <div className="container">
         <Switch>
-          <Route path="/list/:id" component={List} />
-          <Route path="/" component={Lists} />
+          <PrivateRoute path="/list/:id" component={List} />
+
+          <PrivateRoute path="/" component={Lists} />
         </Switch>
       </div>
     </BrowserRouter>

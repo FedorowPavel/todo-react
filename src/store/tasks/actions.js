@@ -16,3 +16,31 @@ export const updateListTask = createAsyncThunk(
   actionTypes.UPDATE_LIST_TASK,
   (task) => apiService.put(`lists/${task.listId}/tasks/${task.id}`, task)
 );
+
+export const deleteListTask = createAsyncThunk(
+  actionTypes.DELETE_LIST_TASK,
+  async ({ taskId, listId }) => {
+    await apiService.delete(`lists/${listId}/tasks/${taskId}`);
+
+    return taskId;
+  }
+);
+
+export const deleteCheckedListTasks = createAsyncThunk(
+  actionTypes.DELETE_CHECKED_LIST_TASK,
+  async (listId, store) => {
+    const state = store.getState();
+
+    const { tasks } = state.tasks;
+
+    const checkedTasks = tasks.filter((task) => task.checked);
+
+    await Promise.all(
+      checkedTasks.map((task) =>
+        apiService.delete(`lists/${listId}/tasks/${task.id}`)
+      )
+    );
+
+    return checkedTasks.map((task) => task.id);
+  }
+);

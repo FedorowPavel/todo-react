@@ -9,13 +9,28 @@ import ListOfLists from './list-of-lists';
 import Loader from '../common/loader';
 import { ActionStatus } from '../../constants/action-status';
 import EntityType from '../../constants/entity-type';
+import { deleteListTask } from '../../store/tasks/actions';
+import { withAuth0 } from '@auth0/auth0-react';
+import { useParams } from 'react-router';
 
 class Lists extends Component {
   componentDidMount() {
-    const { getLists } = this.props;
+    const {
+      getLists,
+      auth0: { user },
+    } = this.props;
 
-    getLists();
+    getLists(user.sub);
   }
+
+  handleAddlist = (newList) => {
+    const {
+      auth0: { user },
+      addList,
+    } = this.props;
+
+    addList({ ...newList, userId: user.sub });
+  };
 
   shouldComponentUpdate() {
     return true;
@@ -27,7 +42,7 @@ class Lists extends Component {
     return (
       <>
         <div className="add-form">
-          <AddEntityForm onSubmit={addList} type={EntityType.LIST} />
+          <AddEntityForm onSubmit={this.handleAddlist} type={EntityType.LIST} />
         </div>
 
         <div className="list-of-lists">
@@ -50,11 +65,11 @@ function mapDispatchToProps(dispatch) {
   return {
     addList: (list) => dispatch(addList(list)),
     deleteList: (id) => dispatch(deleteList(id)),
-    getLists: () => dispatch(getLists()),
+    getLists: (userId) => dispatch(getLists(userId)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lists);
+export default withAuth0(connect(mapStateToProps, mapDispatchToProps)(Lists));
 
 Lists.propTypes = {
   lists: PropTypes.arrayOf(

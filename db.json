@@ -1,28 +1,66 @@
 {
   "lists": [
     {
+      "name": "list 3",
+      "id": 3
+    },
+    {
+      "name": "list",
+      "id": 4
+    },
+    {
+      "name": "dfsdf",
+      "id": 5
+    },
+    {
       "name": "list 1",
-      "id": 1
+      "userId": "auth0|609d4cbaab359f0071243cab",
+      "id": 6
     },
     {
       "name": "list 2",
-      "id": 2
+      "userId": "auth0|609d4cbaab359f0071243cab",
+      "id": 7
     },
     {
       "name": "list 3",
-      "id": 3
+      "userId": "auth0|609d4cbaab359f0071243cab",
+      "id": 8
+    },
+    {
+      "name": "list 4",
+      "userId": "auth0|609d4cbaab359f0071243cab",
+      "id": 9
     }
   ],
   "tasks": [
     {
-      "name": "task 1 ",
-      "listId": "1",
+      "name": "task 1",
+      "checked": false,
+      "order": 1,
+      "listId": "6",
       "id": 1
     },
     {
       "name": "task 2",
-      "listId": "1",
+      "checked": false,
+      "order": 2,
+      "listId": "6",
       "id": 2
+    },
+    {
+      "name": "task 3",
+      "checked": false,
+      "order": 3,
+      "listId": "6",
+      "id": 3
+    },
+    {
+      "name": "task 4",
+      "checked": false,
+      "order": 4,
+      "listId": "6",
+      "id": 4
     }
   ]
 }

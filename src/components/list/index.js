@@ -7,9 +7,14 @@ import ListOfTasks from './list-of-tasks';
 
 import {
   addListTask,
+  deleteListTask,
   getListTasks,
   updateListTask,
+  deleteCheckedListTasks,
 } from '../../store/tasks/actions';
+import { ActionStatus } from '../../constants/action-status';
+import Loader from '../common/loader';
+import { getLastOrder } from '../../utils';
 
 class List extends Component {
   componentDidMount() {
@@ -18,20 +23,50 @@ class List extends Component {
     getListTasks();
   }
 
+  handleAddListTask = (newTask) => {
+    const { addListTask, tasks } = this.props;
+
+    const order = getLastOrder(tasks);
+
+    addListTask({ ...newTask, checked: false, order });
+  };
+
   render() {
-    const { addListTask, tasks, updateListTask } = this.props;
+    const {
+      tasks,
+      updateListTask,
+      status,
+      deleteListTask,
+      deleteCheckedListTasks,
+    } = this.props;
+
+    const sortedTasks = [...tasks].sort((a, b) => a - b);
+
     return (
       <>
         <div className="add-form">
-          <AddEntityForm type={EntityType.TASK} onSubmit={addListTask} />
+          <AddEntityForm
+            type={EntityType.TASK}
+            onSubmit={this.handleAddListTask}
+          />
         </div>
         <div className="todo-list">
-          <ListOfTasks tasks={tasks} onEdit={updateListTask} />
+          <ListOfTasks
+            tasks={sortedTasks}
+            onEdit={updateListTask}
+            onDelete={deleteListTask}
+          />
         </div>
 
         <div className="delete-checked-wrapper">
-          <button className="delete-checked-btn">Delete Checked</button>
+          <button
+            className="delete-checked-btn"
+            onClick={deleteCheckedListTasks}
+          >
+            Delete Checked
+          </button>
         </div>
+        {status === ActionStatus.LOADING && <Loader />}
       </>
     );
   }
@@ -53,6 +88,9 @@ function mapDispatchToProps(dispatch, ownProps) {
     addListTask: (newTask) =>
       dispatch(addListTask({ newTask, listId: params.id })),
     updateListTask: (task) => dispatch(updateListTask(task)),
+    deleteListTask: (taskId) =>
+      dispatch(deleteListTask({ taskId, listId: params.id })),
+    deleteCheckedListTasks: () => dispatch(deleteCheckedListTasks(params.id)),
   };
 }
 

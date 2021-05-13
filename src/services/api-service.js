@@ -47,6 +47,9 @@ class ApiService {
     const response = await fetch(`${this.baseUrl}/${url}`, {
       method: HttpMethod.PUT,
       body: JSON.stringify(body),
+      headers: {
+        'Content-Type': ContentType.APLICATION_JSON,
+      },
     });
 
     if (!response.ok) {

@@ -39,10 +39,14 @@
     "react/button-has-type": "off",
     "jsx-a11y/anchor-is-valid": "warn",
     "comma-dangle": "off",
-    "react/prop-types": "warn",
+    "react/prop-types": "off",
     "react/self-closing-comp": "warn",
     "react/prefer-stateless-function": "warn",
     "react/no-unknown-property": "warn",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "object-curly-newline": "off",
+    "operator-linebreak": "off",
+    "function-paren-newline": "off",
+    "react/jsx-props-no-spreading": "off"
   }
 }
